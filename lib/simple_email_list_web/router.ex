@@ -20,7 +20,7 @@ defmodule SimpleEmailListWeb.Router do
   scope "/", SimpleEmailListWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    resources "/signups", SignupController
+    resources "/", SignupController
   end
 
   # Other scopes may use custom stacks.

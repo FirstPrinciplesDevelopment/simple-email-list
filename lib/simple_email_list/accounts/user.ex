@@ -9,6 +9,8 @@ defmodule SimpleEmailList.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
+    has_many :signups, SimpleEmailList.Signups.Signup
+
     timestamps()
   end
 

@@ -11,7 +11,7 @@ defmodule SimpleEmailList.Repo.Migrations.CreateSignups do
       timestamps()
     end
 
-    create unique_index(:signups, [:email])
+    create unique_index(:signups, [:email, :user_id])
     create index(:signups, [:user_id])
   end
 end

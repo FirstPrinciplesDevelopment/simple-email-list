@@ -5,7 +5,7 @@ defmodule SimpleEmailListWeb.SignupController do
   alias SimpleEmailList.Signups.Signup
 
   def index(conn, _params) do
-    signups = Signups.list_signups()
+    signups = Signups.list_signups(conn.assigns[:current_user])
     render(conn, "index.html", signups: signups)
   end
 
@@ -15,7 +15,7 @@ defmodule SimpleEmailListWeb.SignupController do
   end
 
   def create(conn, %{"signup" => signup_params}) do
-    case Signups.create_signup(signup_params) do
+    case Signups.create_signup(signup_params, conn.assigns[:current_user]) do
       {:ok, signup} ->
         conn
         |> put_flash(:info, "Signup created successfully.")
@@ -27,20 +27,20 @@ defmodule SimpleEmailListWeb.SignupController do
   end
 
   def show(conn, %{"id" => id}) do
-    signup = Signups.get_signup!(id)
+    signup = Signups.get_signup!(id, conn.assigns[:current_user])
     render(conn, "show.html", signup: signup)
   end
 
   def edit(conn, %{"id" => id}) do
-    signup = Signups.get_signup!(id)
+    signup = Signups.get_signup!(id, conn.assigns[:current_user])
     changeset = Signups.change_signup(signup)
     render(conn, "edit.html", signup: signup, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "signup" => signup_params}) do
-    signup = Signups.get_signup!(id)
+    signup = Signups.get_signup!(id, conn.assigns[:current_user])
 
-    case Signups.update_signup(signup, signup_params) do
+    case Signups.update_signup(signup, signup_params, conn.assigns[:current_user]) do
       {:ok, signup} ->
         conn
         |> put_flash(:info, "Signup updated successfully.")
@@ -52,8 +52,8 @@ defmodule SimpleEmailListWeb.SignupController do
   end
 
   def delete(conn, %{"id" => id}) do
-    signup = Signups.get_signup!(id)
-    {:ok, _signup} = Signups.delete_signup(signup)
+    signup = Signups.get_signup!(id, conn.assigns[:current_user])
+    {:ok, _signup} = Signups.delete_signup(signup, conn.assigns[:current_user])
 
     conn
     |> put_flash(:info, "Signup deleted successfully.")

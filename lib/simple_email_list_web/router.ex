@@ -3,6 +3,8 @@ defmodule SimpleEmailListWeb.Router do
 
   import SimpleEmailListWeb.UserAuth
 
+  alias SimpleEmailListWeb.Api.SignupController, as: ApiController
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -24,9 +26,11 @@ defmodule SimpleEmailListWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", SimpleEmailListWeb do
-  #   pipe_through :api
-  # end
+  scope "/api" do
+    pipe_through :api
+
+    post "/signups", ApiController, :create
+  end
 
   # Enables the Swoosh mailbox preview in development.
   #

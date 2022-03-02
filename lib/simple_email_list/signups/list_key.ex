@@ -6,7 +6,9 @@ defmodule SimpleEmailList.Signups.ListKey do
   @foreign_key_type :binary_id
   schema "list_keys" do
     field :client_code, Ecto.UUID
-    field :list_id, :binary_id
+
+    # field :list_id, :binary_id
+    belongs_to :list, SimpleEmailList.Signups.List
 
     timestamps()
   end
@@ -15,6 +17,6 @@ defmodule SimpleEmailList.Signups.ListKey do
   def changeset(list_key, attrs) do
     list_key
     |> cast(attrs, [:client_code])
-    |> validate_required([:client_code])
+    |> validate_required([:client_code, :list_id])
   end
 end

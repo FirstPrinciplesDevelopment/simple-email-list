@@ -23,6 +23,8 @@ defmodule SimpleEmailListWeb.Router do
     get "/", PageController, :index
 
     resources "/lists", ListController
+
+    resources "/list_keys", ListKeyController
   end
 
   # Other scopes may use custom stacks.

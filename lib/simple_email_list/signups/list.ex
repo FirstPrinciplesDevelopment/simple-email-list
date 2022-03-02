@@ -10,6 +10,8 @@ defmodule SimpleEmailList.Signups.List do
     # field :user_id, :binary_id
     belongs_to :user, SimpleEmailList.Accounts.User
 
+    has_many :list_keys, SimpleEmailList.Signups.ListKey
+
     timestamps()
   end
 

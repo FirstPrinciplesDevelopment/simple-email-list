@@ -1,0 +1,13 @@
+<h1>Show List key</h1>
+
+<ul>
+
+  <li>
+    <strong>Client code:</strong>
+    <%= @list_key.client_code %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.list_key_path(@conn, :edit, @list_key) %></span> |
+<span><%= link "Back", to: Routes.list_key_path(@conn, :index) %></span>

@@ -101,4 +101,100 @@ defmodule SimpleEmailList.Signups do
   def change_list(%List{} = list, attrs \\ %{}) do
     List.changeset(list, attrs)
   end
+
+  alias SimpleEmailList.Signups.ListKey
+
+  @doc """
+  Returns the list of list_keys.
+
+  ## Examples
+
+      iex> list_list_keys()
+      [%ListKey{}, ...]
+
+  """
+  def list_list_keys do
+    Repo.all(ListKey)
+  end
+
+  @doc """
+  Gets a single list_key.
+
+  Raises `Ecto.NoResultsError` if the List key does not exist.
+
+  ## Examples
+
+      iex> get_list_key!(123)
+      %ListKey{}
+
+      iex> get_list_key!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_list_key!(id), do: Repo.get!(ListKey, id)
+
+  @doc """
+  Creates a list_key.
+
+  ## Examples
+
+      iex> create_list_key(%{field: value})
+      {:ok, %ListKey{}}
+
+      iex> create_list_key(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_list_key(attrs \\ %{}) do
+    %ListKey{}
+    |> ListKey.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a list_key.
+
+  ## Examples
+
+      iex> update_list_key(list_key, %{field: new_value})
+      {:ok, %ListKey{}}
+
+      iex> update_list_key(list_key, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_list_key(%ListKey{} = list_key, attrs) do
+    list_key
+    |> ListKey.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a list_key.
+
+  ## Examples
+
+      iex> delete_list_key(list_key)
+      {:ok, %ListKey{}}
+
+      iex> delete_list_key(list_key)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_list_key(%ListKey{} = list_key) do
+    Repo.delete(list_key)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking list_key changes.
+
+  ## Examples
+
+      iex> change_list_key(list_key)
+      %Ecto.Changeset{data: %ListKey{}}
+
+  """
+  def change_list_key(%ListKey{} = list_key, attrs \\ %{}) do
+    ListKey.changeset(list_key, attrs)
+  end
 end

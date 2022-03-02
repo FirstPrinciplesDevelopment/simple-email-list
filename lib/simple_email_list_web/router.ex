@@ -20,6 +20,8 @@ defmodule SimpleEmailListWeb.Router do
   scope "/", SimpleEmailListWeb do
     pipe_through :browser
 
+    get "/", PageController, :index
+
     resources "/signups", SignupController
   end
 

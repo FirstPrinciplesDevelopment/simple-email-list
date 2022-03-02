@@ -8,54 +8,49 @@ defmodule SimpleEmailList.Signups do
 
   alias SimpleEmailList.Signups.Signup
 
-  alias SimpleEmailList.Accounts.User
-
   @doc """
-  Returns the list of signups for the current user.
+  Returns the list of signups.
 
   ## Examples
 
-      iex> list_signups(%User{})
+      iex> list_signups()
       [%Signup{}, ...]
 
   """
-  def list_signups(%User{} = current_user) do
-    Repo.all(from s in Signup, where: s.user_id == ^current_user.id)
+  def list_signups do
+    Repo.all(Signup)
   end
 
   @doc """
-  Gets a single signup by id and current user.
+  Gets a single signup.
 
   Raises `Ecto.NoResultsError` if the Signup does not exist.
 
   ## Examples
 
-      iex> get_signup!(123, %User{})
+      iex> get_signup!(123)
       %Signup{}
 
-      iex> get_signup!(456, %User{})
+      iex> get_signup!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_signup!(id, %User{} = current_user) do
-    Repo.get_by!(Signup, id: id, user_id: current_user.id)
-  end
+  def get_signup!(id), do: Repo.get!(Signup, id)
 
   @doc """
   Creates a signup.
 
   ## Examples
 
-      iex> create_signup(%{field: value}, %User{})
+      iex> create_signup(%{field: value})
       {:ok, %Signup{}}
 
-      iex> create_signup(%{field: bad_value}, %User{})
+      iex> create_signup(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_signup(attrs \\ %{}, %User{} = current_user) do
-    current_user
-    |> Ecto.build_assoc(:signups)
+  def create_signup(attrs \\ %{}) do
+    %Signup{}
     |> Signup.changeset(attrs)
     |> Repo.insert()
   end
@@ -65,19 +60,17 @@ defmodule SimpleEmailList.Signups do
 
   ## Examples
 
-      iex> update_signup(signup, %{field: new_value}, %User{})
+      iex> update_signup(signup, %{field: new_value})
       {:ok, %Signup{}}
 
-      iex> update_signup(signup, %{field: bad_value}, %User{})
+      iex> update_signup(signup, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_signup(%Signup{} = signup, attrs, %User{} = current_user) do
-    if signup.user_id == current_user.id do
-      signup
-      |> Signup.changeset(attrs)
-      |> Repo.update()
-    end
+  def update_signup(%Signup{} = signup, attrs) do
+    signup
+    |> Signup.changeset(attrs)
+    |> Repo.update()
   end
 
   @doc """
@@ -85,17 +78,15 @@ defmodule SimpleEmailList.Signups do
 
   ## Examples
 
-      iex> delete_signup(signup, %User{})
+      iex> delete_signup(signup)
       {:ok, %Signup{}}
 
-      iex> delete_signup(signup, %User{})
+      iex> delete_signup(signup)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_signup(%Signup{} = signup, %User{} = current_user) do
-    if signup.user_id == current_user.id do
-      Repo.delete(signup)
-    end
+  def delete_signup(%Signup{} = signup) do
+    Repo.delete(signup)
   end
 
   @doc """

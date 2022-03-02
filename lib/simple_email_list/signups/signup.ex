@@ -7,7 +7,9 @@ defmodule SimpleEmailList.Signups.Signup do
   schema "signups" do
     field :email, :string
     field :name, :string
-    field :list_id, :binary_id
+
+    # field :list_id, :binary_id
+    belongs_to :list, SimpleEmailList.Signups.List
 
     timestamps()
   end
@@ -16,6 +18,7 @@ defmodule SimpleEmailList.Signups.Signup do
   def changeset(signup, attrs) do
     signup
     |> cast(attrs, [:email, :name])
-    |> validate_required([:email, :name])
+    |> validate_required([:email, :list_id])
+    |> unique_constraint([:email, :list_id])
   end
 end

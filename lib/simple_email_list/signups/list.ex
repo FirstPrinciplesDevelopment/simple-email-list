@@ -11,6 +11,7 @@ defmodule SimpleEmailList.Signups.List do
     belongs_to :user, SimpleEmailList.Accounts.User
 
     has_many :list_keys, SimpleEmailList.Signups.ListKey
+    has_many :signups, SimpleEmailList.Signups.Signup
 
     timestamps()
   end

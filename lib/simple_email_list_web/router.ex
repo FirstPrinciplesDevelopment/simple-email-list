@@ -25,6 +25,8 @@ defmodule SimpleEmailListWeb.Router do
     resources "/lists", ListController
 
     resources "/list_keys", ListKeyController
+
+    resources "/signups", SignupController
   end
 
   # Other scopes may use custom stacks.

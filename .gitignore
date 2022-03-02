@@ -32,3 +32,5 @@ simple_email_list-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Local editor files
+.vscode/

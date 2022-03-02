@@ -31,4 +31,19 @@ defmodule SimpleEmailList.SignupsFixtures do
 
     list_key
   end
+
+  @doc """
+  Generate a signup.
+  """
+  def signup_fixture(attrs \\ %{}) do
+    {:ok, signup} =
+      attrs
+      |> Enum.into(%{
+        email: "some email",
+        name: "some name"
+      })
+      |> SimpleEmailList.Signups.create_signup()
+
+    signup
+  end
 end

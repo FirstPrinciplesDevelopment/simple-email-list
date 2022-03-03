@@ -5,7 +5,7 @@ defmodule SimpleEmailListWeb.ListController do
   alias SimpleEmailList.Signups.List
 
   def index(conn, _params) do
-    lists = Signups.list_lists()
+    lists = Signups.list_lists(conn.assigns[:current_user])
     render(conn, "index.html", lists: lists)
   end
 
@@ -15,7 +15,7 @@ defmodule SimpleEmailListWeb.ListController do
   end
 
   def create(conn, %{"list" => list_params}) do
-    case Signups.create_list(list_params) do
+    case Signups.create_list(conn.assigns[:current_user], list_params) do
       {:ok, list} ->
         conn
         |> put_flash(:info, "List created successfully.")

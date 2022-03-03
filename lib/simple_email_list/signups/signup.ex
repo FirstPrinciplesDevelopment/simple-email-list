@@ -20,5 +20,13 @@ defmodule SimpleEmailList.Signups.Signup do
     |> cast(attrs, [:email, :name])
     |> validate_required([:email, :list_id])
     |> unique_constraint([:email, :list_id])
+    |> validate_email_address(:email)
+  end
+
+  # TODO: implement
+  defp validate_email_address(changeset, field) when is_atom(field) do
+    validate_change(changeset, field, fn field, value ->
+      []
+    end)
   end
 end

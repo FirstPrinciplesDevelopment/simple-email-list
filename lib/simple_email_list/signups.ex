@@ -6,19 +6,20 @@ defmodule SimpleEmailList.Signups do
   import Ecto.Query, warn: false
   alias SimpleEmailList.Repo
 
+  alias SimpleEmailList.Accounts.User
   alias SimpleEmailList.Signups.List
 
   @doc """
-  Returns the list of lists.
+  Returns the list of lists for a user.
 
   ## Examples
 
-      iex> list_lists()
+      iex> list_lists(%User{})
       [%List{}, ...]
 
   """
-  def list_lists do
-    Repo.all(List)
+  def list_lists(%User{} = user) do
+    Repo.all(from l in List, where: l.user_id == ^user.id)
   end
 
   @doc """
@@ -38,19 +39,20 @@ defmodule SimpleEmailList.Signups do
   def get_list!(id), do: Repo.get!(List, id)
 
   @doc """
-  Creates a list.
+  Creates a list, that has a relation to a user.
 
   ## Examples
 
-      iex> create_list(%{field: value})
+      iex> create_list(%User{}, %{field: value})
       {:ok, %List{}}
 
-      iex> create_list(%{field: bad_value})
+      iex> create_list(%User{}, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_list(attrs \\ %{}) do
-    %List{}
+  def create_list(%User{} = user, attrs \\ %{}) do
+    user
+    |> Ecto.build_assoc(:lists)
     |> List.changeset(attrs)
     |> Repo.insert()
   end
@@ -105,16 +107,22 @@ defmodule SimpleEmailList.Signups do
   alias SimpleEmailList.Signups.ListKey
 
   @doc """
-  Returns the list of list_keys.
+  Returns the list of keys for one of a user's lists.
 
   ## Examples
 
-      iex> list_list_keys()
+      iex> list_list_keys(%User{}, list_id)
       [%ListKey{}, ...]
 
   """
-  def list_list_keys do
-    Repo.all(ListKey)
+  def list_list_keys(%User{} = user, list_id) do
+    Repo.all(
+      from k in ListKey,
+        join: l in assoc(k, :list),
+        where: l.id == ^list_id,
+        where: l.user_id == ^user.id,
+        preload: [list: l]
+    )
   end
 
   @doc """
@@ -131,7 +139,9 @@ defmodule SimpleEmailList.Signups do
       ** (Ecto.NoResultsError)
 
   """
-  def get_list_key!(id), do: Repo.get!(ListKey, id)
+  def get_list_key!(list_id, id) do
+    Repo.get_by!(ListKey, list_id: list_id, id: id)
+  end
 
   @doc """
   Creates a list_key.
@@ -145,8 +155,8 @@ defmodule SimpleEmailList.Signups do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_list_key(attrs \\ %{}) do
-    %ListKey{}
+  def create_list_key(list_id, attrs \\ %{}) do
+    %ListKey{list_id: list_id, client_code: Ecto.UUID.generate()}
     |> ListKey.changeset(attrs)
     |> Repo.insert()
   end
@@ -201,33 +211,41 @@ defmodule SimpleEmailList.Signups do
   alias SimpleEmailList.Signups.Signup
 
   @doc """
-  Returns the list of signups.
+  Returns the list of signups for a user's list.
 
   ## Examples
 
-      iex> list_signups()
+      iex> list_signups(%User{}, list_id)
       [%Signup{}, ...]
 
   """
-  def list_signups do
-    Repo.all(Signup)
+  def list_signups(%User{} = user, list_id) do
+    Repo.all(
+      from s in Signup,
+        join: l in assoc(s, :list),
+        where: l.id == ^list_id,
+        where: l.user_id == ^user.id,
+        preload: [list: l]
+    )
   end
 
   @doc """
-  Gets a single signup.
+  Gets a single signup by list_id and id.
 
   Raises `Ecto.NoResultsError` if the Signup does not exist.
 
   ## Examples
 
-      iex> get_signup!(123)
+      iex> get_signup!(list_id, signup_id)
       %Signup{}
 
-      iex> get_signup!(456)
+      iex> get_signup!(list_id, signup_id)
       ** (Ecto.NoResultsError)
 
   """
-  def get_signup!(id), do: Repo.get!(Signup, id)
+  def get_signup!(list_id, id) do
+    Repo.get_by!(Signup, list_id: list_id, id: id)
+  end
 
   @doc """
   Creates a signup.
@@ -241,8 +259,8 @@ defmodule SimpleEmailList.Signups do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_signup(attrs \\ %{}) do
-    %Signup{}
+  def create_signup(list_id, attrs \\ %{}) do
+    %Signup{list_id: list_id}
     |> Signup.changeset(attrs)
     |> Repo.insert()
   end

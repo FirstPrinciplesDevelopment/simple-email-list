@@ -18,15 +18,17 @@ defmodule SimpleEmailListWeb.Router do
   end
 
   scope "/", SimpleEmailListWeb do
-    pipe_through :browser
+    pipe_through [:browser, :require_authenticated_user]
 
-    get "/", PageController, :index
+    resources "/", ListController
 
-    resources "/lists", ListController
+    get "/:list_id/list_keys", ListKeyController, :index
+    get "/:list_id/list_keys/new", ListKeyController, :new
+    get "/:list_id/list_keys/:id", ListKeyController, :show
+    post "/:list_id/list_keys", ListKeyController, :create
+    delete "/:list_id/list_keys/:id", ListKeyController, :delete
 
-    resources "/list_keys", ListKeyController
-
-    resources "/signups", SignupController
+    resources "/:list_id/signups", SignupController
   end
 
   # Other scopes may use custom stacks.

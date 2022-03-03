@@ -4,59 +4,59 @@ defmodule SimpleEmailListWeb.SignupController do
   alias SimpleEmailList.Signups
   alias SimpleEmailList.Signups.Signup
 
-  def index(conn, _params) do
-    signups = Signups.list_signups()
-    render(conn, "index.html", signups: signups)
+  def index(conn, %{"list_id" => list_id}) do
+    signups = Signups.list_signups(conn.assigns[:current_user], list_id)
+    render(conn, "index.html", signups: signups, list_id: list_id)
   end
 
-  def new(conn, _params) do
+  def new(conn, %{"list_id" => list_id}) do
     changeset = Signups.change_signup(%Signup{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, list_id: list_id)
   end
 
-  def create(conn, %{"signup" => signup_params}) do
-    case Signups.create_signup(signup_params) do
+  def create(conn, %{"list_id" => list_id, "signup" => signup_params}) do
+    case Signups.create_signup(list_id, signup_params) do
       {:ok, signup} ->
         conn
         |> put_flash(:info, "Signup created successfully.")
-        |> redirect(to: Routes.signup_path(conn, :show, signup))
+        |> redirect(to: Routes.signup_path(conn, :show, list_id, signup))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, list_id: list_id)
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    signup = Signups.get_signup!(id)
-    render(conn, "show.html", signup: signup)
+  def show(conn, %{"list_id" => list_id, "id" => id}) do
+    signup = Signups.get_signup!(list_id, id)
+    render(conn, "show.html", signup: signup, list_id: list_id)
   end
 
-  def edit(conn, %{"id" => id}) do
-    signup = Signups.get_signup!(id)
+  def edit(conn, %{"list_id" => list_id, "id" => id}) do
+    signup = Signups.get_signup!(list_id, id)
     changeset = Signups.change_signup(signup)
-    render(conn, "edit.html", signup: signup, changeset: changeset)
+    render(conn, "edit.html", signup: signup, changeset: changeset, list_id: list_id)
   end
 
-  def update(conn, %{"id" => id, "signup" => signup_params}) do
-    signup = Signups.get_signup!(id)
+  def update(conn, %{"list_id" => list_id, "id" => id, "signup" => signup_params}) do
+    signup = Signups.get_signup!(list_id, id)
 
     case Signups.update_signup(signup, signup_params) do
       {:ok, signup} ->
         conn
         |> put_flash(:info, "Signup updated successfully.")
-        |> redirect(to: Routes.signup_path(conn, :show, signup))
+        |> redirect(to: Routes.signup_path(conn, :show, list_id, signup))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", signup: signup, changeset: changeset)
+        render(conn, "edit.html", signup: signup, changeset: changeset, list_id: list_id)
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    signup = Signups.get_signup!(id)
+  def delete(conn, %{"list_id" => list_id, "id" => id}) do
+    signup = Signups.get_signup!(list_id, id)
     {:ok, _signup} = Signups.delete_signup(signup)
 
     conn
     |> put_flash(:info, "Signup deleted successfully.")
-    |> redirect(to: Routes.signup_path(conn, :index))
+    |> redirect(to: Routes.signup_path(conn, :index, list_id))
   end
 end

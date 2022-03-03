@@ -23,10 +23,12 @@ defmodule SimpleEmailList.Signups.Signup do
     |> validate_email_address(:email)
   end
 
-  # TODO: implement
   defp validate_email_address(changeset, field) when is_atom(field) do
     validate_change(changeset, field, fn field, value ->
-      []
+      cond do
+        String.match?(value, ~r/.+@.+/) -> []
+        true -> [{field, "invalid email address"}]
+      end
     end)
   end
 end

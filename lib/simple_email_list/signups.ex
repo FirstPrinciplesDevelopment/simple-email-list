@@ -138,6 +138,24 @@ defmodule SimpleEmailList.Signups do
   end
 
   @doc """
+  Gets a single list_key by client_code.
+
+  Raises `Ecto.NoResultsError` if the List key does not exist.
+
+  ## Examples
+
+      iex> get_list_key!(code)
+      %ListKey{}
+
+      iex> get_list_key!(code)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_list_key(client_code) do
+    Repo.get_by(ListKey, client_code: client_code)
+  end
+
+  @doc """
   Creates a list_key.
 
   ## Examples
@@ -240,10 +258,10 @@ defmodule SimpleEmailList.Signups do
 
   ## Examples
 
-      iex> create_signup(%{field: value})
+      iex> create_signup(list_id, %{field: value})
       {:ok, %Signup{}}
 
-      iex> create_signup(%{field: bad_value})
+      iex> create_signup(list_id, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """

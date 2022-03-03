@@ -107,22 +107,16 @@ defmodule SimpleEmailList.Signups do
   alias SimpleEmailList.Signups.ListKey
 
   @doc """
-  Returns the list of keys for one of a user's lists.
+  Returns the list of keys for a list.
 
   ## Examples
 
-      iex> list_list_keys(%User{}, list_id)
+      iex> list_list_keys(list_id)
       [%ListKey{}, ...]
 
   """
-  def list_list_keys(%User{} = user, list_id) do
-    Repo.all(
-      from k in ListKey,
-        join: l in assoc(k, :list),
-        where: l.id == ^list_id,
-        where: l.user_id == ^user.id,
-        preload: [list: l]
-    )
+  def list_list_keys(list_id) do
+    Repo.all(from k in ListKey, where: k.list_id == ^list_id)
   end
 
   @doc """
@@ -211,22 +205,16 @@ defmodule SimpleEmailList.Signups do
   alias SimpleEmailList.Signups.Signup
 
   @doc """
-  Returns the list of signups for a user's list.
+  Returns the list of signups for a list.
 
   ## Examples
 
-      iex> list_signups(%User{}, list_id)
+      iex> list_signups(list_id)
       [%Signup{}, ...]
 
   """
-  def list_signups(%User{} = user, list_id) do
-    Repo.all(
-      from s in Signup,
-        join: l in assoc(s, :list),
-        where: l.id == ^list_id,
-        where: l.user_id == ^user.id,
-        preload: [list: l]
-    )
+  def list_signups(list_id) do
+    Repo.all(from s in Signup, where: s.list_id == ^list_id)
   end
 
   @doc """

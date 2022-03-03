@@ -4,6 +4,8 @@ defmodule SimpleEmailListWeb.ListController do
   alias SimpleEmailList.Signups
   alias SimpleEmailList.Signups.List
 
+  plug :authorize_action when action in [:show, :edit, :update, :delete]
+
   def index(conn, _params) do
     lists = Signups.list_lists(conn.assigns[:current_user])
     render(conn, "index.html", lists: lists)
@@ -58,5 +60,18 @@ defmodule SimpleEmailListWeb.ListController do
     conn
     |> put_flash(:info, "List deleted successfully.")
     |> redirect(to: Routes.list_path(conn, :index))
+  end
+
+  defp authorize_action(conn, _params) do
+    list = Signups.get_list!(conn.params["id"])
+
+    if list.user_id != conn.assigns[:current_user].id do
+      conn
+      |> put_flash(:error, "Unauthorized")
+      |> redirect(to: Routes.list_path(conn, :index))
+      |> halt()
+    end
+
+    conn
   end
 end

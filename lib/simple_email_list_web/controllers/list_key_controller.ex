@@ -4,8 +4,10 @@ defmodule SimpleEmailListWeb.ListKeyController do
   alias SimpleEmailList.Signups
   alias SimpleEmailList.Signups.ListKey
 
+  plug :authorize_action
+
   def index(conn, %{"list_id" => list_id}) do
-    list_keys = Signups.list_list_keys(conn.assigns[:current_user], list_id)
+    list_keys = Signups.list_list_keys(list_id)
     render(conn, "index.html", list_keys: list_keys, list_id: list_id)
   end
 
@@ -38,5 +40,18 @@ defmodule SimpleEmailListWeb.ListKeyController do
     conn
     |> put_flash(:info, "List key deleted successfully.")
     |> redirect(to: Routes.list_key_path(conn, :index, list_id))
+  end
+
+  defp authorize_action(conn, _params) do
+    list = Signups.get_list!(conn.params["list_id"])
+
+    if list.user_id != conn.assigns[:current_user].id do
+      conn
+      |> put_flash(:error, "Unauthorized")
+      |> redirect(to: Routes.list_path(conn, :index))
+      |> halt()
+    end
+
+    conn
   end
 end

@@ -29,11 +29,11 @@ defmodule SimpleEmailListWeb.Router do
 
     resources "/", ListController
 
-    get "/:list_id/list_keys", ListKeyController, :index
-    get "/:list_id/list_keys/new", ListKeyController, :new
-    get "/:list_id/list_keys/:id", ListKeyController, :show
-    post "/:list_id/list_keys", ListKeyController, :create
-    delete "/:list_id/list_keys/:id", ListKeyController, :delete
+    get "/:list_id/keys", ListKeyController, :index
+    get "/:list_id/keys/new", ListKeyController, :new
+    get "/:list_id/keys/:id", ListKeyController, :show
+    post "/:list_id/keys", ListKeyController, :create
+    delete "/:list_id/keys/:id", ListKeyController, :delete
 
     resources "/:list_id/signups", SignupController
   end

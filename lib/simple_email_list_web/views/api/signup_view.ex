@@ -8,7 +8,6 @@ defmodule SimpleEmailListWeb.Api.SignupView do
 
   def render("signup.json", %{signup: signup}) do
     %{
-      id: signup.id,
       email: signup.email,
       name: signup.name
     }

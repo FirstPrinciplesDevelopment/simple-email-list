@@ -16,4 +16,8 @@ defmodule SimpleEmailListWeb.ChangesetView do
     # as a JSON object. So we just pass it forward.
     %{errors: translate_errors(changeset)}
   end
+
+  def render("error.json", %{error: error}) do
+    %{errors: error}
+  end
 end

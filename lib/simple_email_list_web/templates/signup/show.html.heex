@@ -14,5 +14,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.signup_path(@conn, :edit, @signup) %></span> |
-<span><%= link "Back", to: Routes.signup_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.signup_path(@conn, :edit, @list_id, @signup) %></span> |
+<span><%= link "Back", to: Routes.signup_path(@conn, :index, @list_id) %></span>

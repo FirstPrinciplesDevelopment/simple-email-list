@@ -14,11 +14,27 @@ defmodule SimpleEmailListWeb.FallbackController do
     |> render("error.json", changeset: changeset)
   end
 
-  # This clause is an example of how to handle resources that cannot be found.
-  def call(conn, {:error, :not_found}) do
+  # This clause handles the case when the payload is missing required fields.
+  def call(conn, {:error, :invalid_payload}) do
     conn
-    |> put_status(:not_found)
-    |> put_view(SimpleEmailListWeb.ErrorView)
-    |> render(:"404")
+    |> put_status(:unprocessable_entity)
+    |> put_view(SimpleEmailListWeb.ChangesetView)
+    |> render("error.json", %{error: "payload is invalid"})
+  end
+
+  # This clause handles the case when client_code is not even a UUID.
+  def call(conn, :error) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(SimpleEmailListWeb.ChangesetView)
+    |> render("error.json", %{error: "client_code must be a valid UUID"})
+  end
+
+  # This clause handles the case when the client_code is not found.
+  def call(conn, nil) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(SimpleEmailListWeb.ChangesetView)
+    |> render("error.json", %{error: "client_code does not exist"})
   end
 end

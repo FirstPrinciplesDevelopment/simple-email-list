@@ -2,7 +2,6 @@ defmodule SimpleEmailListWeb.Router do
   use SimpleEmailListWeb, :router
 
   import SimpleEmailListWeb.UserAuth
-
   alias SimpleEmailListWeb.Api.SignupController, as: ApiController
 
   pipeline :browser do
@@ -19,17 +18,24 @@ defmodule SimpleEmailListWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api/v1" do
+    pipe_through :api
+
+    post "/signups/create", ApiController, :create
+  end
+
   scope "/", SimpleEmailListWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    resources "/", SignupController
-  end
+    resources "/", ListController
 
-  # Other scopes may use custom stacks.
-  scope "/api" do
-    pipe_through :api
+    get "/:list_id/list_keys", ListKeyController, :index
+    get "/:list_id/list_keys/new", ListKeyController, :new
+    get "/:list_id/list_keys/:id", ListKeyController, :show
+    post "/:list_id/list_keys", ListKeyController, :create
+    delete "/:list_id/list_keys/:id", ListKeyController, :delete
 
-    post "/signups", ApiController, :create
+    resources "/:list_id/signups", SignupController
   end
 
   # Enables the Swoosh mailbox preview in development.

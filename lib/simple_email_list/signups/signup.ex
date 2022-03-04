@@ -8,8 +8,8 @@ defmodule SimpleEmailList.Signups.Signup do
     field :email, :string
     field :name, :string
 
-    # field :user_id, :binary_id
-    belongs_to :user, SimpleEmailList.Accounts.User
+    # field :list_id, :binary_id
+    belongs_to :list, SimpleEmailList.Signups.List
 
     timestamps()
   end
@@ -17,8 +17,18 @@ defmodule SimpleEmailList.Signups.Signup do
   @doc false
   def changeset(signup, attrs) do
     signup
-    |> cast(attrs, [:email, :name, :user_id])
-    |> validate_required([:email, :user_id])
-    |> unique_constraint([:email, :user_id])
+    |> cast(attrs, [:email, :name])
+    |> validate_required([:email, :list_id])
+    |> unique_constraint([:email, :list_id])
+    |> validate_email_address(:email)
+  end
+
+  defp validate_email_address(changeset, field) when is_atom(field) do
+    validate_change(changeset, field, fn field, value ->
+      cond do
+        String.match?(value, ~r/.+@.+/) -> []
+        true -> [{field, "invalid email address"}]
+      end
+    end)
   end
 end

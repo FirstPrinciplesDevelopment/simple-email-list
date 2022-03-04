@@ -1,0 +1,25 @@
+<h1>Listing List keys</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Client code</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for list_key <- @list_keys do %>
+    <tr>
+      <td><%= list_key.client_code %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.list_key_path(@conn, :show, @list_id, list_key) %></span>
+        <span><%= link "Delete", to: Routes.list_key_path(@conn, :delete, @list_id, list_key), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New List key", to: Routes.list_key_path(@conn, :new, @list_id) %></span>

@@ -1,5 +1,5 @@
 <h1>Edit Signup</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.signup_path(@conn, :update, @signup)) %>
+<%= render "form.html", Map.put(assigns, :action, Routes.signup_path(@conn, :update, @list_id, @signup)) %>
 
-<span><%= link "Back", to: Routes.signup_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.signup_path(@conn, :index, @list_id) %></span>

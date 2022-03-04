@@ -5,9 +5,32 @@ defmodule SimpleEmailList.SignupsFixtures do
   """
 
   @doc """
-  Generate a unique signup email.
+  Generate a list.
   """
-  def unique_signup_email, do: "some email#{System.unique_integer([:positive])}"
+  def list_fixture(attrs \\ %{}) do
+    {:ok, list} =
+      attrs
+      |> Enum.into(%{
+        name: "some name"
+      })
+      |> SimpleEmailList.Signups.create_list()
+
+    list
+  end
+
+  @doc """
+  Generate a list_key.
+  """
+  def list_key_fixture(attrs \\ %{}) do
+    {:ok, list_key} =
+      attrs
+      |> Enum.into(%{
+        client_code: "7488a646-e31f-11e4-aace-600308960662"
+      })
+      |> SimpleEmailList.Signups.create_list_key()
+
+    list_key
+  end
 
   @doc """
   Generate a signup.
@@ -16,7 +39,7 @@ defmodule SimpleEmailList.SignupsFixtures do
     {:ok, signup} =
       attrs
       |> Enum.into(%{
-        email: unique_signup_email(),
+        email: "some email",
         name: "some name"
       })
       |> SimpleEmailList.Signups.create_signup()

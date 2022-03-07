@@ -1,27 +1,36 @@
-<h1>Log in</h1>
+<div class="px-6 py-8 my-10 bg-white shadow-xl ring-1 ring-gray-900/5 sm:max-w-lg sm:mx-auto sm:rounded-lg sm:px-10">
+  <div class="max-w-lg mx-auto">
 
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
-  <%= if @error_message do %>
-    <div class="alert alert-danger">
-      <p><%= @error_message %></p>
+    <h1 class="text-3xl font-semibold mb-2 self-center text-center">Log in</h1>
+
+    <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
+      <%= if @error_message do %>
+        <div class="alert alert-danger">
+          <p><%= @error_message %></p>
+        </div>
+      <% end %>
+      
+      <div class="">
+        <%= email_input f, :email, required: true, class: "w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Email" %>
+      </div>
+
+      <div class="">
+        <%= password_input f, :password, required: true, class: "w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Password" %>
+      </div>
+
+      <div class="flex my-1">
+        <%= checkbox f, :remember_me, class: "h-4 w-4 text-blue-700 focus:ring-blue-500 border-gray-500 rounded" %>
+        <%= label f, :remember_me, "Keep me logged in for 60 days", class: "ml-2 block text-sm text-gray-900" %>
+      </div>
+
+      <div>
+        <%= submit "Log in", class: "btn my-1 p-1 w-full rounded ring-1 ring-blue-500 bg-blue-700 text-white text-lg font-bold hover:bg-blue-500" %>
+      </div>
+    </.form>
+
+    <div class="flex items-center justify-between my-1">
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "text-sm font-medium text-blue-700 hover:text-blue-500" %>
+      <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "text-sm font-medium text-blue-700 hover:text-blue-500" %>
     </div>
-  <% end %>
-
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
-
-  <%= label f, :remember_me, "Keep me logged in for 60 days" %>
-  <%= checkbox f, :remember_me %>
-
-  <div>
-    <%= submit "Log in" %>
   </div>
-</.form>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>
+</div>

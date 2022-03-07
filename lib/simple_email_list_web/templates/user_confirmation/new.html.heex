@@ -1,15 +1,20 @@
-<h1>Resend confirmation instructions</h1>
+<div class="px-6 py-8 my-10 bg-white shadow-xl ring-1 ring-gray-900/5 sm:max-w-lg sm:mx-auto sm:rounded-lg sm:px-10">
+  <div class="max-w-lg mx-auto">
 
-<.form let={f} for={:user} action={Routes.user_confirmation_path(@conn, :create)}>
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+    <h1 class="text-3xl font-semibold mb-2 self-center text-center">Resend confirmation instructions</h1>
 
-  <div>
-    <%= submit "Resend confirmation instructions" %>
+    <.form let={f} for={:user} action={Routes.user_confirmation_path(@conn, :create)}>
+      <%= email_input f, :email, required: true, class: "w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Email" %>
+
+      <div>
+        <%= submit "Resend confirmation instructions", class: "btn my-1 p-1 w-full rounded ring-1 ring-blue-500 bg-blue-700 text-white text-lg font-bold hover:bg-blue-500" %>
+      </div>
+      
+    </.form>
+
+    <div class="flex items-center justify-between my-1">
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "text-sm font-medium text-blue-700 hover:text-blue-500" %>
+      <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "text-sm font-medium text-blue-700 hover:text-blue-500" %>
+    </div>
   </div>
-</.form>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-</p>
+</div>

@@ -1,25 +1,31 @@
-<h1 class="text-2xl">Email Lists</h1>
 
-<table class="table-auto text-lg my-2">
-  <thead>
+<div class="flex my-4 pb-8">
+  <h1 class="text-4xl font-bold pr-8">Email Lists</h1>
+  <%= link "New List", to: Routes.list_path(@conn, :new), class: "btn py-2 px-6 bg-green-600 hover:bg-green-500" %>
+</div>
+
+<table class="table-auto my-2 w-full">
+  <thead class="text-sm font-light">
     <tr>
-      <th>Name</th>
+      <th class="text-left px-4">Name</th>
 
+      <th></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for list <- @lists do %>
     <tr class="odd:bg-slate-200">
-      <td class="px-4 p-2 hover:text-blue-500"><%= link list.name, to: Routes.list_path(@conn, :show, list) %></td>
+      <td class="pr-14 pl-4 h-16 align-middle text-left"><%= link list.name, to: Routes.list_path(@conn, :show, list), class: "text-blue-600 font-semibold text-lg hover:text-blue-500 hover:font-bold hover:text-xl" %></td>
 
-      <td class="p-2">
-        <span class="btn m-2"><%= link "Edit", to: Routes.list_path(@conn, :edit, list) %></span>
-        <span class="btn m-2"><%= link "Delete", to: Routes.list_path(@conn, :delete, list), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      <td class="w-28">
+        <%= link "Edit", to: Routes.list_path(@conn, :edit, list), class: "btn py-2 px-8" %>
+      </td>
+      <td class="w-28 pr-6">
+        <%= link "Delete", to: Routes.list_path(@conn, :delete, list), method: :delete, data: [confirm: "Are you sure?"], class: "btn bg-red-700 hover:bg-red-600 py-2 px-6" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span class="btn mx-4"><%= link "New List", to: Routes.list_path(@conn, :new) %></span>

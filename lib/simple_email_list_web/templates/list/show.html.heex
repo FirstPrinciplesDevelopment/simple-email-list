@@ -1,13 +1,12 @@
-<h1>Show List</h1>
+<h1 class="text-2xl"><%= @list.name %></h1>
 
-<ul>
+<span><%= link "Edit", to: Routes.list_path(@conn, :edit, @list), class: "btn" %></span>
+<span><%= link "Back", to: Routes.list_path(@conn, :index), class: "btn" %></span>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @list.name %>
-  </li>
+<div>
+  <span><%= link "List Keys", to: Routes.list_key_path(@conn, :index, @list_id), class: "btn" %></span>
+</div>
 
-</ul>
-
-<span><%= link "Edit", to: Routes.list_path(@conn, :edit, @list) %></span> |
-<span><%= link "Back", to: Routes.list_path(@conn, :index) %></span>
+<div>
+  <span><%= link "Signups", to: Routes.signup_path(@conn, :index, @list_id), class: "btn" %></span>
+</div>

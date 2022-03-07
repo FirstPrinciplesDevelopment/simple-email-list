@@ -30,7 +30,7 @@ defmodule SimpleEmailListWeb.ListController do
 
   def show(conn, %{"id" => id}) do
     list = Signups.get_list!(id)
-    render(conn, "show.html", list: list)
+    render(conn, "show.html", list: list, list_id: id)
   end
 
   def edit(conn, %{"id" => id}) do

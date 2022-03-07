@@ -1,10 +1,14 @@
-<ul>
-<%= if @current_user do %>
-  <li><%= @current_user.email %></li>
-  <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
-  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
-<% else %>
-  <li><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
-  <li><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
-<% end %>
-</ul>
+<div class="w-full bg-blue-900  flex items-center justify-between">
+  <a href="/" class="phx-logo">
+    <img src={Routes.static_path(@conn, "/images/logo.png")} alt="Simple Email List Logo"/>
+  </a>
+  <div>
+    <%= if @current_user do %>
+      <%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+      <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+    <% else %>
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+      <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+    <% end %>
+  </div>
+</div>

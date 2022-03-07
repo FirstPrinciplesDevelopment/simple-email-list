@@ -5,11 +5,10 @@
     </div>
   <% end %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
+  <%= text_input f, :name, class: "w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Name" %>
   <%= error_tag f, :name %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save", class: "btn" %>
   </div>
 </.form>

@@ -1,6 +1,6 @@
 <h1>Listing List keys</h1>
 
-<table>
+<table class="table-auto">
   <thead>
     <tr>
       <th>Client code</th>
@@ -14,12 +14,13 @@
       <td><%= list_key.client_code %></td>
 
       <td>
-        <span><%= link "Show", to: Routes.list_key_path(@conn, :show, @list_id, list_key) %></span>
-        <span><%= link "Delete", to: Routes.list_key_path(@conn, :delete, @list_id, list_key), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <span><%= link "Show", to: Routes.list_key_path(@conn, :show, @list_id, list_key), class: "btn" %></span>
+        <span><%= link "Delete", to: Routes.list_key_path(@conn, :delete, @list_id, list_key), method: :delete, data: [confirm: "Are you sure?"], class: "btn" %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New List key", to: Routes.list_key_path(@conn, :new, @list_id) %></span>
+<span><%= link "New List key", to: Routes.list_key_path(@conn, :new, @list_id), class: "btn" %></span>
+<span><%= link "Back", to: Routes.list_path(@conn, :show, @list_id), class: "btn" %></span>

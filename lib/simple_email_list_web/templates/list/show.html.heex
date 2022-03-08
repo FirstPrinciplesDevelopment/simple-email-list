@@ -1,13 +1,93 @@
+<script>
+  // Copy a value to the clipboard and show a notification.
+  function copyAndNotify(value) {
+      alertElem = document.getElementById("alert-info");
+      // Copy the value to clipboard.
+      navigator.clipboard.writeText(value);
+      // Notify the user.
+      alertElem.innerHTML = `Copied ${value} to clipboard.`;
+  }
+</script>
+
 <div class="flex my-4 pb-8">
   <%= link "Back", to: Routes.list_path(@conn, :index), class: "btn py-2 px-6 mr-8" %>
   <h1 class="text-4xl font-bold pr-8"><%= @list.name %></h1>
   <%= link "Edit", to: Routes.list_path(@conn, :edit, @list), class: "btn py-2 px-6 mr-8" %>
 </div>
 
+<p id="alert-info" class="alert alert-info" role="alert"></p>
+
 <div class="py-4">
-  <span><%= link "Keys", to: Routes.list_key_path(@conn, :index, @list_id), class: "btn py-2 px-6" %></span>
+
+  <h1 class="text-xl font-semibold">List Keys</h1>
+
+  <table class="table-auto my-2 w-full">
+    <thead class="text-sm font-light">
+      <tr>
+        <th class="text-left px-4">Client code</th>
+
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= for list_key <- @list_keys do %>
+      <tr class="odd:bg-slate-200">
+        <td class="pr-14 pl-4 h-10 align-middle text-left">
+          <span class="rounded-xl px-2 text-green-900 bg-sky-200 text-lg font-mono cursor-copy" onclick={"copyAndNotify('#{list_key.client_code}');"}><%= list_key.client_code %></span>
+        </td>
+
+        <td class="w-28">
+          <span class="btn py-2 px-6 cursor-pointer" onclick={"copyAndNotify('#{list_key.client_code}');"}>Copy</span>
+        </td>
+        <td class="w-28 pr-6">
+          <%= link "Delete", to: Routes.list_key_path(@conn, :delete, @list_id, list_key), method: :delete, data: [confirm: "Are you sure?"], class: "btn py-2 px-6 bg-red-700 hover:bg-red-600" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="py-2">
+    <%= link "New List Key", to: Routes.list_key_path(@conn, :create, @list_id), method: :create, class: "btn py-2 px-6 bg-green-600 hover:bg-green-500" %>
+  </div>
 </div>
 
 <div class="py-4">
-  <span><%= link "Signups", to: Routes.signup_path(@conn, :index, @list_id), class: "btn py-2 px-6" %></span>
+
+  <h1 class="text-xl font-semibold">Signups</h1>
+
+  <table class="table-auto my-2 w-full">
+    <thead class="text-sm font-light">
+      <tr>
+        <th class="text-left px-4">Email</th>
+        <th class="text-left px-4">Name</th>
+
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= for signup <- @signups do %>
+      <tr class="odd:bg-slate-200">
+        <td class="pr-14 pl-4 h-10 align-middle text-left">
+          <a class="hover:text-blue-500 cursor-pointer text-lg" href={"mailto:#{signup.email}"}><%= signup.email %></a>
+        </td>
+        <td class="pr-14 pl-4 h-10 align-middle text-left"><%= signup.name %></td>
+
+        <td class="w-24">
+          <%= link "Edit", to: Routes.signup_path(@conn, :edit, @list_id, signup), class: "btn py-2 px-6" %>
+        </td>
+        <td class="w-28 pr-6">
+          <%= link "Delete", to: Routes.signup_path(@conn, :delete, @list_id, signup), method: :delete, data: [confirm: "Are you sure?"], class: "btn py-2 px-6 bg-red-700 hover:bg-red-600" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="py-2">
+    <%= link "New Signup", to: Routes.signup_path(@conn, :new, @list_id), class: "btn py-2 px-6 bg-green-600 hover:bg-green-500" %>
+  </div>
+
 </div>

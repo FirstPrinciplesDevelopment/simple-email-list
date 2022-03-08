@@ -29,13 +29,15 @@ defmodule SimpleEmailListWeb.Router do
 
     resources "/", ListController
 
-    get "/:list_id/keys", ListKeyController, :index
-    get "/:list_id/keys/new", ListKeyController, :new
-    get "/:list_id/keys/:id", ListKeyController, :show
     post "/:list_id/keys", ListKeyController, :create
     delete "/:list_id/keys/:id", ListKeyController, :delete
 
-    resources "/:list_id/signups", SignupController
+    get "/:list_id/signups/:id/edit", SignupController, :edit
+    get "/:list_id/signups/new", SignupController, :new
+    post "/:list_id/signups", SignupController, :create
+    patch "/:list_id/signups/:id", SignupController, :update
+    put "/:list_id/signups/:id", SignupController, :update
+    delete "/:list_id/signups/:id", SignupController, :delete
   end
 
   # Enables the Swoosh mailbox preview in development.

@@ -3,6 +3,7 @@ defmodule SimpleEmailListWeb.ListController do
 
   alias SimpleEmailList.Signups
   alias SimpleEmailList.Signups.List
+  alias SimpleEmailList.Signups.ListKey
 
   plug :authorize_action when action in [:show, :edit, :update, :delete]
 
@@ -30,7 +31,17 @@ defmodule SimpleEmailListWeb.ListController do
 
   def show(conn, %{"id" => id}) do
     list = Signups.get_list!(id)
-    render(conn, "show.html", list: list, list_id: id)
+    list_keys = Signups.list_list_keys(id)
+    signups = Signups.list_signups(id)
+    changeset = Signups.change_list_key(%ListKey{})
+
+    render(conn, "show.html",
+      list: list,
+      list_id: id,
+      list_keys: list_keys,
+      signups: signups,
+      list_key_changeset: changeset
+    )
   end
 
   def edit(conn, %{"id" => id}) do

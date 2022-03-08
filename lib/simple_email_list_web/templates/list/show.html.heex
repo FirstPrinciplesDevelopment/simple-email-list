@@ -1,12 +1,13 @@
-<h1 class="text-2xl"><%= @list.name %></h1>
-
-<span><%= link "Edit", to: Routes.list_path(@conn, :edit, @list), class: "btn" %></span>
-<span><%= link "Back", to: Routes.list_path(@conn, :index), class: "btn" %></span>
-
-<div>
-  <span><%= link "List Keys", to: Routes.list_key_path(@conn, :index, @list_id), class: "btn" %></span>
+<div class="flex my-4 pb-8">
+  <%= link "Back", to: Routes.list_path(@conn, :index), class: "btn py-2 px-6 mr-8" %>
+  <h1 class="text-4xl font-bold pr-8"><%= @list.name %></h1>
+  <%= link "Edit", to: Routes.list_path(@conn, :edit, @list), class: "btn py-2 px-6 mr-8" %>
 </div>
 
-<div>
-  <span><%= link "Signups", to: Routes.signup_path(@conn, :index, @list_id), class: "btn" %></span>
+<div class="py-4">
+  <span><%= link "Keys", to: Routes.list_key_path(@conn, :index, @list_id), class: "btn py-2 px-6" %></span>
+</div>
+
+<div class="py-4">
+  <span><%= link "Signups", to: Routes.signup_path(@conn, :index, @list_id), class: "btn py-2 px-6" %></span>
 </div>

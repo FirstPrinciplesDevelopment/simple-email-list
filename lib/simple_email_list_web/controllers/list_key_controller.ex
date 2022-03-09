@@ -2,7 +2,6 @@ defmodule SimpleEmailListWeb.ListKeyController do
   use SimpleEmailListWeb, :controller
 
   alias SimpleEmailList.Signups
-  alias SimpleEmailList.Signups.ListKey
 
   plug :authorize_action
 

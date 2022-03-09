@@ -15,14 +15,15 @@ defmodule SimpleEmailListWeb.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
     plug CORSPlug
+    plug :accepts, ["json"]
   end
 
   scope "/api/v1" do
     pipe_through :api
 
     post "/signups/create", ApiController, :create
+    options "signups/create", ApiController, :options
   end
 
   scope "/", SimpleEmailListWeb do

@@ -16,6 +16,7 @@ defmodule SimpleEmailListWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug
   end
 
   scope "/api/v1" do

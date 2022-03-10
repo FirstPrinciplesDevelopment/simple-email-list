@@ -1,5 +1,6 @@
-<h1>Edit Signup</h1>
+<div class="flex my-4 pb-8">
+    <%= link "Back", to: Routes.list_path(@conn, :show, @list_id), class: "btn p-2 mr-2 md:px-6 md:mr-8 max-h-10" %>
+    <h1 class="dark:text-white text-4xl font-bold pr-8">Edit Signup</h1>
+</div>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.signup_path(@conn, :update, @list_id, @signup)) %>
-
-<span><%= link "Back", to: Routes.signup_path(@conn, :index, @list_id) %></span>

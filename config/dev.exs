@@ -25,7 +25,8 @@ config :simple_email_list, SimpleEmailListWeb.Endpoint,
   secret_key_base: "7KXIDusks//DP/s1QCJypD/6kstm3QrTuzqw/o3bHspBTAFbM5uXyjyGils7K61w",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support

@@ -1,0 +1,1 @@
+call "%~dp0\simple_email_list" eval SimpleEmailList.Release.migrate

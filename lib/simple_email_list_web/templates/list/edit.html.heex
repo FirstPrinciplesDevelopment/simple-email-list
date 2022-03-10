@@ -1,5 +1,6 @@
-<h1>Edit List</h1>
+<div class="flex my-4 pb-8">
+    <%= link "Back", to: Routes.list_path(@conn, :index), class: "btn p-2 mr-2 md:px-6 md:mr-8 max-h-10" %>
+    <h1 class="dark:text-white text-4xl font-bold md:pr-8">Edit Email List</h1>
+</div>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.list_path(@conn, :update, @list)) %>
-
-<span><%= link "Back", to: Routes.list_path(@conn, :index) %></span>

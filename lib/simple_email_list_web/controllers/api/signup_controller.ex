@@ -7,6 +7,12 @@ defmodule SimpleEmailListWeb.Api.SignupController do
 
   action_fallback SimpleEmailListWeb.FallbackController
 
+  def options(conn, _params) do
+    conn
+    |> put_resp_header("Allow", "OPTIONS, POST")
+    |> send_resp(204, "")
+  end
+
   def create(conn, %{"client_code" => code, "signup" => signup_params}) do
     with {:ok, uuid} <- Ecto.UUID.cast(code),
          %ListKey{} = list_key <- Signups.get_list_key(uuid),

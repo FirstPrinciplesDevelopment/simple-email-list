@@ -1,4 +1,4 @@
-<h1 class="text-4xl font-bold pr-8">Settings</h1>
+<h1 class="dark:text-white text-4xl font-bold pr-8">Settings</h1>
 
 <div class="py-4">
   <h3 class="text-xl font-semibold">Change email</h3>
@@ -13,11 +13,11 @@
     <%= hidden_input f, :action, name: "action", value: "update_email" %>
 
     <%= label f, :email %>
-    <%= email_input f, :email, required: true, class: "w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Email" %>
+    <%= email_input f, :email, required: true, class: "text-black w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Email" %>
     <div class="pt-4"><%= error_tag f, :email %></div>
 
     <%= label f, :current_password, "Current Password", for: "current_password_for_email" %>
-    <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email", class: "w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Current Password" %>
+    <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email", class: "text-black w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Current Password" %>
     <div class="pt-4"><%= error_tag f, :current_password %></div>
 
     <div>
@@ -39,15 +39,15 @@
     <%= hidden_input f, :action, name: "action", value: "update_password" %>
 
     <%= label f, :password %>
-    <%= password_input f, :password, required: true, class: "w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "New Password" %>
+    <%= password_input f, :password, required: true, class: "text-black w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "New Password" %>
     <div class="pt-4"><%= error_tag f, :password %></div>
 
     <%= label f, :password_confirmation, "Confirm Password" %>
-    <%= password_input f, :password_confirmation, required: true, class: "w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Confirm Password" %>
+    <%= password_input f, :password_confirmation, required: true, class: "text-black w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Confirm Password" %>
     <div class="pt-4"><%= error_tag f, :password_confirmation %></div>
 
     <%= label f, :current_password, "Current Password" %>
-    <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password", class: "w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Current Password" %>
+    <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password", class: "text-black w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Current Password" %>
     <div class="pt-4"><%= error_tag f, :current_password %></div>
 
     <div>

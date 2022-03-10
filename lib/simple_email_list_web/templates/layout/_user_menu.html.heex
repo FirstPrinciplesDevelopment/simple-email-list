@@ -1,11 +1,12 @@
 <div class="w-full bg-blue-900  flex items-center justify-between">
-  <a href="/" class="p-2 flex bg-gradient-to-r from-rose-700 to-blue-900">
-    <img src={Routes.static_path(@conn, "/images/logo.png")} alt="Simple Email List Logo" height="60" width="80"/>
-    <h1 class="text-5xl text-white pl-2">Simple Email List</h1>
+
+  <a href="/" class="p-2 flex bg-gradient-to-r from-rose-700 to-blue-900 h-full">
+    <img class="hidden md:block sm:h-12" src={Routes.static_path(@conn, "/images/logo.png")} alt="Simple Email List Logo"/>
+    <h1 class="text-2xl md:text-3xl lg:text-4xl text-white pl-2 sm:py-1">Simple Email List</h1>
   </a>
-  <div class="flex">
+  <div class="hidden md:flex ">
     <%= if @current_user do %>
-      <%= link "My Lists", to: Routes.list_path(@conn, :index), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+      <%= link ~H"My&nbsp;Lists", to: Routes.list_path(@conn, :index), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
     <% end %>
     <div>
       <button id="theme-selector" class="px-3 py-2 mr-3 w-[100px] shrink-0 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold">
@@ -19,10 +20,38 @@
     </div>
     <%= if @current_user do %>
       <%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
-      <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+      <%= link ~H"Log&nbsp;out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
     <% else %>
       <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
-      <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+      <%= link ~H"Log&nbsp;in", to: Routes.user_session_path(@conn, :new), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
     <% end %>
   </div>
+
+  <div id="mobile-menu-toggle" class="md:hidden p-3 space-y-2">
+    <span class="block w-8 h-0.5 bg-white rounded-lg"></span>
+    <span class="block w-8 h-0.5 bg-white rounded-lg"></span>
+    <span class="block w-8 h-0.5 bg-white rounded-lg"></span>
+  </div>
+
+</div>
+
+<div id="mobile-menu" class="hidden">
+  <%= if @current_user do %>
+    <div class="w-full border-b-2 border-blue-500">
+      <%= link ~H"My&nbsp;Lists", to: Routes.list_path(@conn, :index), class: "w-full block py-3 bg-blue-700 hover:bg-blue-500 text-white text-2xl text-center font-bold" %>
+    </div>
+    <div class="w-full border-b-2 border-blue-500">
+      <%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "w-full block py-3 bg-blue-700 hover:bg-blue-500 text-white text-2xl text-center font-bold" %>
+    </div>
+    <div class="w-full border-b-2 border-blue-500">
+      <%= link ~H"Log&nbsp;out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "w-full block py-3 bg-blue-700 hover:bg-blue-500 text-white text-2xl text-center font-bold" %>
+    </div>
+  <% else %>
+    <div class="w-full border-b-2 border-blue-500">
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "w-full block py-3 bg-blue-700 hover:bg-blue-500 text-white text-2xl text-center font-bold" %>
+    </div>
+    <div class="w-full border-b-2 border-blue-500">
+      <%= link ~H"Log&nbsp;in", to: Routes.user_session_path(@conn, :new), class: "w-full block py-3 bg-blue-700 hover:bg-blue-500 text-white text-2xl text-center font-bold" %>
+    </div>
+  <% end %>
 </div>

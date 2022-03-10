@@ -96,5 +96,19 @@ systemThemeOption.addEventListener('click', event => {
 
 });
 
+// toggle the mobile menu visibility
+const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuToggle.addEventListener('click', event => {
+    // check visibility
+    if (mobileMenu.classList.contains('hidden'))
+    {
+        mobileMenu.classList.remove('hidden');
+    }
+    else {
+        mobileMenu.classList.add('hidden');
+    }
+});
+
 // on page load, set theme
 updateTheme();

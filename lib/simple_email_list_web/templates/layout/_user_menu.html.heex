@@ -4,6 +4,9 @@
     <h1 class="text-5xl text-white pl-2">Simple Email List</h1>
   </a>
   <div class="flex">
+    <%= if @current_user do %>
+      <%= link "My Lists", to: Routes.list_path(@conn, :index), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+    <% end %>
     <div>
       <button id="theme-selector" class="px-3 py-2 mr-3 w-[100px] shrink-0 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold">
         <div class="flex justify-between"><span id="selected-theme">Theme</span>&nbsp;<span class="text-xs py-1">&#9660;</span></div>

@@ -1,8 +1,19 @@
 <div class="w-full bg-blue-900  flex items-center justify-between">
-  <a href="/" class="phx-logo">
-    <img src={Routes.static_path(@conn, "/images/logo.png")} alt="Simple Email List Logo"/>
+  <a href="/" class="p-2 flex bg-gradient-to-r from-rose-700 to-blue-900">
+    <img src={Routes.static_path(@conn, "/images/logo.png")} alt="Simple Email List Logo" height="60" width="80"/>
+    <h1 class="text-5xl text-white pl-2">Simple Email List</h1>
   </a>
-  <div>
+  <div class="flex">
+    <div>
+      <button id="theme-selector" class="px-3 py-2 mr-3 w-[100px] shrink-0 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold">
+        <div class="flex justify-between"><span id="selected-theme">Theme</span>&nbsp;<span class="text-xs py-1">&#9660;</span></div>
+      </button>
+      <ul id="theme-options" class="absolute w-[100px] invisible top-16 rounded bg-blue-700 text-white font-bold">
+        <li><button id="theme-option-light" type="button" class="cursor-pointer w-full bg-blue-700 px-5 py-1 hover:bg-blue-500 text-center rounded-t-md">Light</button></li>
+        <li><button id="theme-option-dark" type="button" class="cursor-pointer w-full bg-blue-700 px-5 py-1 hover:bg-blue-500 text-center">Dark</button></li>
+        <li><button id="theme-option-system" type="button" class="cursor-pointer w-full bg-blue-700 px-5 py-1 hover:bg-blue-500 text-center rounded-b-md">System</button></li>
+      </ul>
+    </div>
     <%= if @current_user do %>
       <%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
       <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "px-3 py-2 mr-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>

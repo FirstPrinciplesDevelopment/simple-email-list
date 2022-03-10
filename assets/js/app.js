@@ -44,18 +44,57 @@ import "phoenix_html"
 
 // Tailwind - support light mode, dark mode, as well as respecting the operating system preference:
 // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark')
-} else {
-    document.documentElement.classList.remove('dark')
+function updateTheme() {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
 }
 
-// TODO: wire up these three operations:
-// Whenever the user explicitly chooses light mode
-localStorage.theme = 'light'
+// wire up theme selection UI
+const themeSelector = document.getElementById("theme-selector");
+const lightThemeOption = document.getElementById("theme-option-light");
+const darkThemeOption = document.getElementById("theme-option-dark");
+const systemThemeOption = document.getElementById("theme-option-system");
+const selectedTheme = document.getElementById("selected-theme");
 
-// Whenever the user explicitly chooses dark mode
-localStorage.theme = 'dark'
 
-// Whenever the user explicitly chooses to respect the OS preference
-localStorage.removeItem('theme')
+// show the options when the dropdown is clicked
+themeSelector.addEventListener('click', event => {
+    // important not to propogate, otherwise the options will be hidden right away
+    event.stopPropagation();
+    document.getElementById('theme-options').classList.remove('invisible');
+});
+
+// hide the options on every other click event
+document.addEventListener('click', event => {
+    document.getElementById('theme-options').classList.add('invisible');
+});
+
+lightThemeOption.addEventListener('click', event => {
+    // Whenever the user explicitly chooses light mode
+    localStorage.theme = 'light';
+    selectedTheme.innerText = 'Light';
+    updateTheme();
+
+});
+
+darkThemeOption.addEventListener('click', event => {
+    // Whenever the user explicitly chooses dark mode
+    localStorage.theme = 'dark';
+    selectedTheme.innerText = 'Dark';
+    updateTheme()
+
+});
+
+systemThemeOption.addEventListener('click', event => {
+    // Whenever the user explicitly chooses to respect the OS preference
+    localStorage.removeItem('theme');
+    selectedTheme.innerText = 'System';
+    updateTheme();
+
+});
+
+// on page load, set theme
+updateTheme();

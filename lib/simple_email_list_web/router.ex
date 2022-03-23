@@ -23,7 +23,7 @@ defmodule SimpleEmailListWeb.Router do
     pipe_through :api
 
     post "/signups/create", ApiController, :create
-    options "signups/create", ApiController, :options
+    options "/signups/create", ApiController, :options
   end
 
   scope "/", SimpleEmailListWeb do
@@ -33,6 +33,7 @@ defmodule SimpleEmailListWeb.Router do
 
     post "/:list_id/keys", ListKeyController, :create
     delete "/:list_id/keys/:id", ListKeyController, :delete
+    get "/:list_id/keys/:id", ListKeyController, :show
 
     get "/:list_id/signups/:id/edit", SignupController, :edit
     get "/:list_id/signups/new", SignupController, :new

@@ -1,0 +1,25 @@
+<h1 class="text-xl font-semibold">Email Signup Form</h1>
+<div class="pb-5 md:pb-0">Drop this HTML into your website to add a simple email signup form for <strong><%= @list_name %></strong></div>
+<div class="hidden md:block pb-5">
+    Client Code:
+    <span class="dark:ring-emerald-300 dark:bg-emerald-800 dark:text-emerald-200 rounded-xl px-1 ring-2 ring-sky-400 text-teal-900 bg-sky-200 font-mono cursor-copy"
+          onclick={"copyAndNotify(`#{@client_code}`, `#{@client_code}`);"}>
+    <%= @client_code %>
+    </span>
+</div>
+
+<p id="alert-info" class="alert alert-info" role="alert"></p>
+
+<span><%= link "Back", to: Routes.list_path(@conn, :show, @list_id), class: "btn p-2 mr-2 md:px-6 md:mr-8 max-h-10" %></span>
+
+<div>
+    <pre class="mx-auto">
+        <span class="relative top-14 right-2 float-right bg-slate-900 rounded px-2.5 py-1.5 text-lg cursor-pointer" 
+              onclick={"copyAndNotify(`#{@code_snippet}`, 'HTML snippet');"}>Copy</span>
+        <code class="language-html rounded-lg mx-auto">
+            <%= @code_snippet %>
+        </code>
+    </pre>
+</div>
+
+<span><%= link "Back", to: Routes.list_path(@conn, :show, @list_id), class: "btn p-2 mr-2 md:px-6 md:mr-8 max-h-10" %></span>

@@ -10,6 +10,16 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body class="dark:bg-slate-800 dark:text-white">
+    <script>
+      // Copy a value to the clipboard and show a notification.
+      function copyAndNotify(value, conf_value) {
+          alertElem = document.getElementById("alert-info");
+          // Copy the value to clipboard.
+          navigator.clipboard.writeText(value);
+          // Notify the user.
+          alertElem.innerHTML = `Copied ${conf_value} to clipboard.`;
+      }
+    </script>
     <header>
       <section class="">
         <nav>

@@ -18,6 +18,9 @@
 //     import "some-package"
 //
 
+// highlight.min.js
+import hljs from "../vendor/highlight.min.js"
+
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
@@ -101,8 +104,7 @@ const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
 mobileMenuToggle.addEventListener('click', event => {
     // check visibility
-    if (mobileMenu.classList.contains('hidden'))
-    {
+    if (mobileMenu.classList.contains('hidden')) {
         mobileMenu.classList.remove('hidden');
     }
     else {
@@ -112,3 +114,9 @@ mobileMenuToggle.addEventListener('click', event => {
 
 // on page load, set theme
 updateTheme();
+
+// highlight js
+window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    hljs.highlightAll();
+});

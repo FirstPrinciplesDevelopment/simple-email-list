@@ -23,7 +23,7 @@ defmodule SimpleEmailListWeb.Router do
     pipe_through :api
 
     post "/signups/create", ApiController, :create
-    options "signups/create", ApiController, :options
+    options "/signups/create", ApiController, :options
   end
 
   scope "/", SimpleEmailListWeb do

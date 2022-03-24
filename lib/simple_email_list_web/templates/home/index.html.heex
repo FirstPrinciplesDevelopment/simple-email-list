@@ -1,4 +1,42 @@
-<div class="flex my-4 pb-8">
-  <h1 class="dark:text-white text-4xl font-bold pr-8">Home</h1>
-</div>
+<div class="py-10 md:py-16 sm:max-w-5xl sm:mx-auto md:px-10">
+  <div class="md:flex md:flex-row py-8">
+    <h1 class="basis-5/12 dark:text-white dark:bg-blue-800 p-4 text-5xl md:text-6xl font-bold pr-8 rounded-md bg-blue-500 ">
+      Start building your mailing list sooner.
+    </h1>
 
+    <p class="basis-1/2 text-xl md:text-2xl font-bold px-4 self-center">
+      Simple Email List is a free and easy way to collect emails from a static site, so you don't have to write server side code or pay for hosting when all you need is a single feature. Oh, and did we mention it's free?
+    </p>
+  </div>
+
+  <div class="md:flex md:flex-row py-8">
+    <h1 class="md:order-last basis-5/12 dark:text-white dark:bg-blue-800 p-4 text-5xl md:text-6xl font-bold pr-8 rounded-md bg-blue-500 ">
+      Create multiple lists for multiple needs.
+    </h1>
+
+    <p class="basis-1/2 text-xl md:text-2xl font-bold px-4 self-center">
+      Easily collect emails from multiple forms in different lists. For example, you can seperate newsletters from product notifications so users only receive emails they actually want. You can also generate and manage multiple API keys for each list, for greater flexibility and security.
+    </p>
+  </div>
+
+  <div class="md:flex md:flex-row py-8">
+    <h1 class="basis-5/12 dark:text-white dark:bg-blue-800 p-4 text-5xl md:text-6xl font-bold pr-8 rounded-md bg-blue-500 ">
+      Copy/paste a pre-made form, or build your own.
+    </h1>
+
+    <p class="basis-1/2 text-xl md:text-2xl font-bold px-4 self-center">
+      Once you create a list, you can generate API keys that can be used to POST new signups to the JSON API endpoint. You can use the drop-in form that is generated for each list key, customize it to match the look and feel of your site, or build your own from scratch. All it needs to do is POST a simple JSON payload.
+    </p>
+  </div>
+
+  <div class="pt-8 flex">
+    <%= if @current_user do %>
+        <%= link ~H'Go&nbsp;To&nbsp;My&nbsp;Lists&nbsp;&#8594;', to: Routes.list_path(@conn, :index), class: "basis-5/12 text-center mx-auto text-xl p-3 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+    <% else %>
+      <div class="mx-auto basis-5/12 flex flex-col">
+          <%= link ~H'Register&nbsp;Now&nbsp;&#8594;', to: Routes.user_registration_path(@conn, :new), class: "text-center text-xl p-3 mb-4 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+          <%= link ~H'Log&nbsp;In&nbsp;&#8594;', to: Routes.user_session_path(@conn, :new), class: "text-center text-xl p-3 mt-4 ring-2 ring-blue-500 rounded bg-blue-700 hover:bg-blue-500 text-white font-bold" %>
+      </div>
+   <% end %>
+  </div>
+</div>

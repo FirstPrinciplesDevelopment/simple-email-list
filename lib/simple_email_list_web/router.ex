@@ -14,6 +14,10 @@ defmodule SimpleEmailListWeb.Router do
     plug :fetch_current_user
   end
 
+  pipeline :splash do
+    plug :put_layout, {SimpleEmailListWeb.LayoutView, :splash}
+  end
+
   pipeline :api do
     plug CORSPlug
     plug :accepts, ["json"]
@@ -27,7 +31,7 @@ defmodule SimpleEmailListWeb.Router do
   end
 
   scope "/", SimpleEmailListWeb do
-    pipe_through :browser
+    pipe_through [:browser, :splash]
 
     get "/", HomeController, :index
   end

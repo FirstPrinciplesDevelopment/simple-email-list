@@ -1,0 +1,5 @@
+<main class="bg-gradient-to-b w-full min-h-screen h-full from-blue-400 dark:from-slate-900 to-slate-200 dark:to-blue-900">
+  <p class="alert alert-info relative top-8 sm:max-w-5xl sm:mx-auto md:px-10" role="alert"><%= get_flash(@conn, :info) %></p>
+  <p class="alert alert-danger relative top-8 sm:max-w-5xl sm:mx-auto md:px-10" role="alert"><%= get_flash(@conn, :error) %></p>
+  <%= @inner_content %>
+</main>

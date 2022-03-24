@@ -27,20 +27,26 @@ defmodule SimpleEmailListWeb.Router do
   end
 
   scope "/", SimpleEmailListWeb do
+    pipe_through :browser
+
+    get "/", HomeController, :index
+  end
+
+  scope "/", SimpleEmailListWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    resources "/", ListController
+    resources "/lists/", ListController
 
-    post "/:list_id/keys", ListKeyController, :create
-    delete "/:list_id/keys/:id", ListKeyController, :delete
-    get "/:list_id/keys/:id", ListKeyController, :show
+    post "/lists/:list_id/keys", ListKeyController, :create
+    delete "/lists/:list_id/keys/:id", ListKeyController, :delete
+    get "/lists/:list_id/keys/:id", ListKeyController, :show
 
-    get "/:list_id/signups/:id/edit", SignupController, :edit
-    get "/:list_id/signups/new", SignupController, :new
-    post "/:list_id/signups", SignupController, :create
-    patch "/:list_id/signups/:id", SignupController, :update
-    put "/:list_id/signups/:id", SignupController, :update
-    delete "/:list_id/signups/:id", SignupController, :delete
+    get "/lists/:list_id/signups/:id/edit", SignupController, :edit
+    get "/lists/:list_id/signups/new", SignupController, :new
+    post "/lists/:list_id/signups", SignupController, :create
+    patch "/lists/:list_id/signups/:id", SignupController, :update
+    put "/lists/:list_id/signups/:id", SignupController, :update
+    delete "/lists/:list_id/signups/:id", SignupController, :delete
   end
 
   # Enables the Swoosh mailbox preview in development.

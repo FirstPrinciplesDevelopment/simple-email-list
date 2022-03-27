@@ -6,9 +6,9 @@
   <% end %>
 
   <%= text_input f, :name, class: "text-black w-full rounded ring-1 ring-blue-700 focus:ring-blue-500 my-1", placeholder: "Name" %>
-  <div class="pt-4"><%= error_tag f, :name %></div>
+  <%= error_tag f, :name %>
 
   <div class="">
-    <%= submit "Save", class: "btn py-2 px-6" %>
+    <%= submit "Save", class: "btn py-2 px-6 my-1" %>
   </div>
 </.form>

@@ -45,58 +45,59 @@ import "phoenix_html"
 // >> liveSocket.disableLatencySim()
 // window.liveSocket = liveSocket
 
+// wire up theme selection UI
+const lightThemeOption = document.getElementById('theme-option-light');
+const darkThemeOption = document.getElementById('theme-option-dark');
+const systemThemeOption = document.getElementById('theme-option-system');
+const selectedOptionClass = 'bg-blue-600';
+
 // Tailwind - support light mode, dark mode, as well as respecting the operating system preference:
 // On page load or when changing themes, best to add inline in `head` to avoid FOUC
 function updateTheme() {
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if ('theme' in localStorage && localStorage.theme === 'dark')
+    {
         document.documentElement.classList.add('dark');
+        // Indicate selected option
+        indicate(darkThemeOption, [lightThemeOption, systemThemeOption], selectedOptionClass);
+    }
+    else if ('theme' in localStorage && localStorage.theme === 'light') {
+        document.documentElement.classList.remove('dark');
+        // Indicate selected option
+        indicate(lightThemeOption, [darkThemeOption, systemThemeOption], selectedOptionClass);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+        // Indicate selected option
+        indicate(systemThemeOption, [darkThemeOption, lightThemeOption], selectedOptionClass);
     } else {
         document.documentElement.classList.remove('dark');
+        // Indicate selected option
+        indicate(systemThemeOption, [darkThemeOption, lightThemeOption], selectedOptionClass);
     }
 }
 
-// wire up theme selection UI
-const themeSelector = document.getElementById("theme-selector");
-const lightThemeOption = document.getElementById("theme-option-light");
-const darkThemeOption = document.getElementById("theme-option-dark");
-const systemThemeOption = document.getElementById("theme-option-system");
-const selectedTheme = document.getElementById("selected-theme");
-
-
-// show the options when the dropdown is clicked
-themeSelector.addEventListener('click', event => {
-    // important not to propogate, otherwise the options will be hidden right away
-    event.stopPropagation();
-    document.getElementById('theme-options').classList.remove('invisible');
-});
-
-// hide the options on every other click event
-document.addEventListener('click', event => {
-    document.getElementById('theme-options').classList.add('invisible');
-});
+function indicate(selected, others, option) {
+    selected.classList.add(option)
+    others.forEach(element => {
+        element.classList.remove(option)
+    });
+}
 
 lightThemeOption.addEventListener('click', event => {
     // Whenever the user explicitly chooses light mode
     localStorage.theme = 'light';
-    selectedTheme.innerText = 'Light';
     updateTheme();
-
 });
 
 darkThemeOption.addEventListener('click', event => {
     // Whenever the user explicitly chooses dark mode
     localStorage.theme = 'dark';
-    selectedTheme.innerText = 'Dark';
     updateTheme()
-
 });
 
 systemThemeOption.addEventListener('click', event => {
     // Whenever the user explicitly chooses to respect the OS preference
     localStorage.removeItem('theme');
-    selectedTheme.innerText = 'System';
     updateTheme();
-
 });
 
 // toggle the mobile menu visibility

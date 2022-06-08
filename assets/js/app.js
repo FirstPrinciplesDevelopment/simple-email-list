@@ -54,24 +54,21 @@ const selectedOptionClass = 'bg-blue-600';
 // Tailwind - support light mode, dark mode, as well as respecting the operating system preference:
 // On page load or when changing themes, best to add inline in `head` to avoid FOUC
 function updateTheme() {
-    if ('theme' in localStorage && localStorage.theme === 'dark')
+    if (localStorage.theme === 'dark')
     {
+        indicate(darkThemeOption, [lightThemeOption, systemThemeOption], selectedOptionClass)
         document.documentElement.classList.add('dark');
-        // Indicate selected option
-        indicate(darkThemeOption, [lightThemeOption, systemThemeOption], selectedOptionClass);
-    }
-    else if ('theme' in localStorage && localStorage.theme === 'light') {
-        document.documentElement.classList.remove('dark');
-        // Indicate selected option
+    } else if (localStorage.theme === 'light') {
         indicate(lightThemeOption, [darkThemeOption, systemThemeOption], selectedOptionClass);
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark');
-        // Indicate selected option
-        indicate(systemThemeOption, [darkThemeOption, lightThemeOption], selectedOptionClass);
-    } else {
         document.documentElement.classList.remove('dark');
-        // Indicate selected option
+    } else {
         indicate(systemThemeOption, [darkThemeOption, lightThemeOption], selectedOptionClass);
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        else {
+            document.documentElement.classList.remove('dark');
+        }
     }
 }
 

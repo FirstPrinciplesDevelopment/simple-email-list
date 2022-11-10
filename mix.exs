@@ -44,6 +44,7 @@ defmodule SimpleEmailList.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
+      {:hackney, "~> 1.18"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},

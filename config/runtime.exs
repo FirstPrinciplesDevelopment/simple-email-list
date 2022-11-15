@@ -83,12 +83,12 @@ if config_env() == :prod do
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
 
-# Sendgrid configuration.
-config :simple_email_list, SimpleEmailList.Mailer,
-  adapter: Swoosh.Adapters.Sendgrid,
-  api_key: System.get_env("SENDGRID_API_KEY")
+  # Sendgrid configuration.
+  config :simple_email_list, SimpleEmailList.Mailer,
+    adapter: Swoosh.Adapters.Sendgrid,
+    api_key: System.get_env("SENDGRID_API_KEY"),
+    from_email: System.get_env("FROM_EMAIL")
 
-# Configuring an ApiClient is required for non-SMTP Swoosh.Adapters.
-config :swoosh, :api_client, Swoosh.ApiClient.Hackney
-
+  # Configuring an ApiClient is required for non-SMTP Swoosh.Adapters.
+  config :swoosh, :api_client, Swoosh.ApiClient.Hackney
 end

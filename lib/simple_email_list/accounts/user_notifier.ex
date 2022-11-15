@@ -8,7 +8,10 @@ defmodule SimpleEmailList.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"MyApp", "contact@example.com"})
+      |> from(
+        {"Simple Email List",
+         Application.get_env(:simple_email_list, SimpleEmailList.Mailer)[:from_email]}
+      )
       |> subject(subject)
       |> text_body(body)
 

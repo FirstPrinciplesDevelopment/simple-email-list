@@ -19,6 +19,8 @@
 
 - Install dependencies with `mix deps.get`
 - Create and migrate your database with `mix ecto.setup`
+- Rename .env.example to .env and replace the example values with real values for SENDGRID_API_KEY and FROM_EMAIL (Note that SendGrid is only used in production)
+- Run `source .env` before starting the application
 - Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
